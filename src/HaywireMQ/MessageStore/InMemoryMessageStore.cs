@@ -9,84 +9,42 @@ namespace HaywireMQ.MessageStore
 {
     public class InMemoryMessageStore : IMessageStore
     {
-        private ConcurrentQueue<Message> inputQueue;
-        private Dictionary<string, ConcurrentQueue<Message>> outputQueues;
+        private ConcurrentQueue<Message> queue;
 
         public InMemoryMessageStore()
         {
-            inputQueue = new ConcurrentQueue<Message>();
-            outputQueues = new Dictionary<string, ConcurrentQueue<Message>>();
+            queue = new ConcurrentQueue<Message>();
         }
 
         /// <summary>
-        /// Peek the next message in the input queue.
+        /// Peek the next message from the message store.
         /// </summary>
         /// <returns>Message</returns>
-        public Message PeekInputQueue()
+        public Message Peek()
         {
             Message message;
-            inputQueue.TryPeek(out message);
+            queue.TryPeek(out message);
             return message;
         }
 
         /// <summary>
-        /// Dequeue the next message in the input queue.
+        /// Dequeue the next message from the message store.
         /// </summary>
         /// <returns>Message</returns>
-        public Message DequeueInputQueue()
+        public Message Dequeue()
         {
             Message message;
-            inputQueue.TryDequeue(out message);
+            queue.TryDequeue(out message);
             return message;
         }
 
         /// <summary>
-        /// Gets the list of output queues.
+        /// Enqueue a message in the message store.
         /// </summary>
-        /// <returns>List of queues</returns>
-        public IList<string> GetOutputQueues()
+        /// <param name="message">Message</param>
+        public void Enqueue(Message message)
         {
-            return outputQueues.Keys.ToList();
-        }
-
-        /// <summary>
-        /// Peek the next message in the specified output queue.
-        /// </summary>
-        /// <param name="queueAddress">Address of the output queue to peek.</param>
-        /// <returns>Message</returns>
-        public Message PeekOutputQueue(string queueAddress)
-        {
-            if (string.IsNullOrWhiteSpace(queueAddress))
-                throw new ArgumentException("queueAddress");
-
-            ConcurrentQueue<Message> queue;
-            if (outputQueues.TryGetValue(queueAddress, out queue))
-            {
-                Message message;
-                queue.TryPeek(out message);
-                return message;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Dequeue the next message in the specified output queue.
-        /// </summary>
-        /// <param name="queueAddress">Address of the output queue to dequeue.</param>
-        /// <returns>Message</returns>
-        public Message DequeueOutputQueue(string queueAddress)
-        {
-            if (string.IsNullOrWhiteSpace(queueAddress))
-                throw new ArgumentException("queueAddress");
-
-            ConcurrentQueue<Message> queue;
-            if (outputQueues.TryGetValue(queueAddress, out queue))
-            {
-                Message message;
-                queue.TryDequeue(out message);
-                return message;
-            }
-            return null;
+            queue.Enqueue(message);
         }
 
         public void Dispose()

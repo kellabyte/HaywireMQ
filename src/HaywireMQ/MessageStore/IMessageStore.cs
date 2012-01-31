@@ -8,35 +8,21 @@ namespace HaywireMQ.MessageStore
     public interface IMessageStore : IDisposable
     {
         /// <summary>
-        /// Peek the next message in the input queue.
+        /// Peek the next message from the message store.
         /// </summary>
         /// <returns>Message</returns>
-        Message PeekInputQueue();
+        Message Peek();
 
         /// <summary>
-        /// Dequeue the next message in the input queue.
+        /// Dequeue the next message from the message store.
         /// </summary>
         /// <returns>Message</returns>
-        Message DequeueInputQueue();
+        Message Dequeue();
 
         /// <summary>
-        /// Gets the list of output queues.
+        /// Enqueue a message in the message store.
         /// </summary>
-        /// <returns>List of queues</returns>
-        IList<string> GetOutputQueues();
-
-        /// <summary>
-        /// Peek the next message in the specified output queue.
-        /// </summary>
-        /// <param name="queueAddress">Address of the output queue to peek.</param>
-        /// <returns>Message</returns>
-        Message PeekOutputQueue(string queueAddress);
-
-        /// <summary>
-        /// Dequeue the next message in the specified output queue.
-        /// </summary>
-        /// <param name="queueAddress">Address of the output queue to dequeue.</param>
-        /// <returns>Message</returns>
-        Message DequeueOutputQueue(string queueAddress);
+        /// <param name="message"></param>
+        void Enqueue(Message message);
     }
 }
