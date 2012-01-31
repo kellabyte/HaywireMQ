@@ -8,14 +8,14 @@ namespace HaywireMQ.Server
 {
     public class HaywireServer
     {
-        private readonly IMessageStore store;
+        private readonly IMessageStore messageStore;
 
         public HaywireServer(IMessageStore messageStore)
         {
-            if (store == null)
+            if (messageStore == null)
                 throw new ArgumentNullException("messageStore");
 
-            this.store = store;
+            this.messageStore = messageStore;
         }
     }
 }
