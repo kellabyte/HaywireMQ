@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HaywireMQ.MessageStore
+namespace HaywireMQ.Server
 {
-    public interface IMessageStore : IDisposable
+    public interface IMessageQueue : IDisposable
     {
+        /// <summary>
+        /// Unique identifier of the message queue.
+        /// </summary>
+        string Id { get; }
+
         /// <summary>
         /// Peek the next message from the message store.
         /// </summary>

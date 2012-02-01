@@ -43,8 +43,6 @@
     <Compile Include="IMessageQueue.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageQueue.cs" />
-    <Compile Include="MessageStore\IMessageStore.cs" />
-    <Compile Include="MessageStore\InMemoryMessageStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

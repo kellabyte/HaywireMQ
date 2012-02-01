@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AE7D7881-B648-4A67-9A27-9F79A386727D}</ProjectGuid>
+    <ProjectGuid>{3142CE88-9C0F-4C7F-91B9-BC6323246FF8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HaywireMQ.MessageStore.Cassandra</RootNamespace>
-    <AssemblyName>HaywireMQ.MessageStore.Cassandra</AssemblyName>
+    <RootNamespace>HaywireMQ.Channel.ZeroMQ</RootNamespace>
+    <AssemblyName>HaywireMQ.Channel.ZeroMQ</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apache.Cassandra">
-      <HintPath>..\..\lib\Cassandraemon\Apache.Cassandra.dll</HintPath>
-    </Reference>
-    <Reference Include="Cassandraemon">
-      <HintPath>..\..\lib\Cassandraemon\Cassandraemon.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,12 +38,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Thrift">
-      <HintPath>..\..\lib\Cassandraemon\Thrift.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CassandraMessageStore.cs" />
+    <Compile Include="ZeroMQChannel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
