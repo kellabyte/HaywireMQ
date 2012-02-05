@@ -54,7 +54,7 @@
     <Compile Include="MessageQueue.cs" />
     <Compile Include="MessageStore\IMessageStore.cs" />
     <Compile Include="MessageStore\InMemoryMessageStore.cs" />
-    <Compile Include="ModuleCatalog.cs" />
+    <Compile Include="DriverCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

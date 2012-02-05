@@ -12,17 +12,17 @@ namespace HaywireMQ.Server
 {
     public class HaywireServer
     {
-        private ModuleCatalog catalog = null;
+        private DriverCatalog catalog = null;
         public IMessageChannel MessageChannel { get; private set; }
         public IMessageStore MessageStore { get; private set; }
         public List<IMessageQueue> MessageQueues { get; private set; }
 
         public HaywireServer()
-            : this(new ModuleCatalog())
+            : this(new DriverCatalog())
         {
         }
 
-        public HaywireServer(ModuleCatalog catalog)
+        public HaywireServer(DriverCatalog catalog)
         {
             this.catalog = catalog;
         }

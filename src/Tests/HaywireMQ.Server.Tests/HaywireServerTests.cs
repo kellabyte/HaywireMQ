@@ -60,7 +60,7 @@ namespace HaywireMQ.Server.Tests
         public void Should_use_messagestore_from_modulecatalog_when_started()
         {
             var fixture = new Fixture().Customize(new TestConventions());
-            var catalog = fixture.Freeze<ModuleCatalog>();
+            var catalog = fixture.Freeze<DriverCatalog>();
             fixture.AddManyTo(catalog.MessageStores, 1);
             fixture.AddManyTo(catalog.MessageChannels, 1);
             var sut = fixture.CreateAnonymous<HaywireServer>();
@@ -74,7 +74,7 @@ namespace HaywireMQ.Server.Tests
         public void Should_use_messagechannel_from_modulecatalog_when_started()
         {
             var fixture = new Fixture().Customize(new TestConventions());
-            var catalog = fixture.Freeze<ModuleCatalog>();
+            var catalog = fixture.Freeze<DriverCatalog>();
             fixture.AddManyTo(catalog.MessageStores, 1);
             fixture.AddManyTo(catalog.MessageChannels, 1);
             var sut = fixture.CreateAnonymous<HaywireServer>();
@@ -88,7 +88,7 @@ namespace HaywireMQ.Server.Tests
         public void Should_have_1_messagequeue_when_started_with_1_queue_in_messagestore()
         {
             var fixture = new Fixture().Customize(new TestConventions());
-            var catalog = fixture.Freeze<ModuleCatalog>();
+            var catalog = fixture.Freeze<DriverCatalog>();
             fixture.AddManyTo(catalog.MessageStores, 1);
             fixture.AddManyTo(catalog.MessageChannels, 1);
             List<string> ids = fixture.CreateMany<string>(1).ToList();
@@ -104,7 +104,7 @@ namespace HaywireMQ.Server.Tests
         public void Should_have_same_messagequeue_as_messagestore_when_started()
         {
             var fixture = new Fixture().Customize(new TestConventions());
-            var catalog = fixture.Freeze<ModuleCatalog>();
+            var catalog = fixture.Freeze<DriverCatalog>();
             fixture.AddManyTo(catalog.MessageStores, 1);
             fixture.AddManyTo(catalog.MessageChannels, 1);
             List<string> ids = fixture.CreateMany<string>(1).ToList();
