@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
@@ -8,6 +7,7 @@ using HaywireMQ.Server.MessageStore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoFakeItEasy;
+using Ploeh.AutoFixture.Kernel;
 
 namespace HaywireMQ.Server.Tests
 {
@@ -17,73 +17,103 @@ namespace HaywireMQ.Server.Tests
     [TestClass]
     public class HaywireServerTests
     {
-        private IFixture fixture;
-
-        public HaywireServerTests()
+        private class TestConventions : CompositeCustomization
         {
+            public TestConventions()
+                : base(
+                    new AutoFakeItEasyCustomization(),
+                    new GreedyHaywireServerCustomization())
+            {
+            }
         }
 
-        [TestInitialize]
-        public void Initialize()
+        private class GreedyHaywireServerCustomization : ICustomization
         {
-            fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
-        }
-
-        [TestMethod]
-        public void Should_use_defaults_without_ModuleCatalog()
-        {
-            // Given
-            var target = new HaywireServer();
-
-            // When
-            target.Start();
-
-            // Then
-            Assert.AreEqual<Type>(target.MessageStore.GetType(), typeof(InMemoryMessageStore));
-            Assert.AreEqual<Type>(target.MessageChannel.GetType(), typeof(InMemoryMessageChannel));
+            public void Customize(IFixture fixture)
+            {
+                fixture.Customize<HaywireServer>(c =>
+                    c.FromFactory(new MethodInvoker(new GreedyConstructorQuery())));
+            }
         }
 
         [TestMethod]
-        public void Should_use_ModuleCatalog()
+        public void Should_use_default_messagestore_when_started_without_modulecatalog()
         {
-            // Given
-            var catalog = new ModuleCatalog();
-            var messageStore = fixture.CreateAnonymous<IMessageStore>();
-            var messageChannel = fixture.CreateAnonymous<IMessageChannel>();
-            catalog.MessageStores.Add(messageStore);
-            catalog.MessageChannels.Add(messageChannel);
-            var target = new HaywireServer(catalog);
+            var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());            
+            var sut = fixture.CreateAnonymous<HaywireServer>();
+            sut.Start();
 
-            // When
-            target.Start();
-
-            // Then
-            Assert.AreEqual<Type>(target.MessageStore.GetType(), messageStore.GetType());
-            Assert.AreEqual<Type>(target.MessageChannel.GetType(), messageChannel.GetType());
+            Assert.IsInstanceOfType(sut.MessageStore, typeof(InMemoryMessageStore));
         }
 
         [TestMethod]
-        public void Should_create_MessageQueue()
+        public void Should_use_default_messagechannel_when_started_without_modulecatalog()
         {
-            // Given
-            var catalog = new ModuleCatalog();
-            var messageStore = fixture.CreateAnonymous<IMessageStore>();
-            var messageChannel = fixture.CreateAnonymous<IMessageChannel>();
-            catalog.MessageStores.Add(messageStore);
-            catalog.MessageChannels.Add(messageChannel);
-            var target = new HaywireServer(catalog);
+            var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
+            var sut = fixture.CreateAnonymous<HaywireServer>();
+            sut.Start();
 
-            List<string> ids = new List<string>() {"test"};
+            Assert.IsInstanceOfType(sut.MessageChannel, typeof(InMemoryMessageChannel));
+        }
 
-            A.CallTo(() => messageStore.GetQueues()).Returns(ids);
+        [TestMethod]
+        public void Should_use_messagestore_from_modulecatalog_when_started()
+        {
+            var fixture = new Fixture().Customize(new TestConventions());
+            var catalog = fixture.Freeze<ModuleCatalog>();
+            fixture.AddManyTo(catalog.MessageStores, 1);
+            fixture.AddManyTo(catalog.MessageChannels, 1);
+            var sut = fixture.CreateAnonymous<HaywireServer>();
 
-            // When
-            target.Start();
+            sut.Start();
 
-            // Then
-            A.CallTo(() => messageStore.GetQueues()).MustHaveHappened();
-            Assert.AreEqual<int>(target.MessageQueues.Count, 1);
-            Assert.AreEqual<string>(target.MessageQueues[0].Id, "test");
+            Assert.AreEqual(catalog.MessageStores.Single(), sut.MessageStore);
+        }
+
+        [TestMethod]
+        public void Should_use_messagechannel_from_modulecatalog_when_started()
+        {
+            var fixture = new Fixture().Customize(new TestConventions());
+            var catalog = fixture.Freeze<ModuleCatalog>();
+            fixture.AddManyTo(catalog.MessageStores, 1);
+            fixture.AddManyTo(catalog.MessageChannels, 1);
+            var sut = fixture.CreateAnonymous<HaywireServer>();
+
+            sut.Start();
+
+            Assert.AreEqual(catalog.MessageChannels.Single(), sut.MessageChannel);
+        }
+
+        [TestMethod]
+        public void Should_have_1_messagequeue_when_started_with_1_queue_in_messagestore()
+        {
+            var fixture = new Fixture().Customize(new TestConventions());
+            var catalog = fixture.Freeze<ModuleCatalog>();
+            fixture.AddManyTo(catalog.MessageStores, 1);
+            fixture.AddManyTo(catalog.MessageChannels, 1);
+            List<string> ids = fixture.CreateMany<string>(1).ToList();
+            A.CallTo(() => catalog.MessageStores.Single().GetQueues()).Returns(ids);
+            var sut = fixture.CreateAnonymous<HaywireServer>();
+
+            sut.Start();
+
+            Assert.AreEqual(1, sut.MessageQueues.Count);
+        }
+
+        [TestMethod]
+        public void Should_have_same_messagequeue_as_messagestore_when_started()
+        {
+            var fixture = new Fixture().Customize(new TestConventions());
+            var catalog = fixture.Freeze<ModuleCatalog>();
+            fixture.AddManyTo(catalog.MessageStores, 1);
+            fixture.AddManyTo(catalog.MessageChannels, 1);
+            List<string> ids = fixture.CreateMany<string>(1).ToList();
+            A.CallTo(() => catalog.MessageStores.Single().GetQueues()).Returns(ids);
+            var sut = fixture.CreateAnonymous<HaywireServer>();
+
+            sut.Start();
+
+            Assert.AreEqual(ids.First(), sut.MessageQueues[0].Id);
         }
     }
 }
