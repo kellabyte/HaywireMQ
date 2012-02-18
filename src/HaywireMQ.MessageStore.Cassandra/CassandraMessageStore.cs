@@ -15,7 +15,31 @@ namespace HaywireMQ.MessageStore.Cassandra
 
         public IList<string> GetQueues()
         {
-            // TODO
+            throw new NotImplementedException();
+        }
+
+        public ulong GetNextSequence(string queueName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ulong GetMessageCount(string queueName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Message GetMessage(string queueName, ulong sequence)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CreateQueue(string queueName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StoreMessage(string queueName, Message message)
+        {
             throw new NotImplementedException();
         }
     }

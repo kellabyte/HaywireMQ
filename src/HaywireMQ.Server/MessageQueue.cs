@@ -36,6 +36,18 @@ namespace HaywireMQ.Server
             this.channel = channel;
         }
 
+        public void Open()
+        {
+            // TODO
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            // TODO
+            throw new NotImplementedException();            
+        }
+
         public Message Peek()
         {
             // TODO
@@ -51,7 +63,16 @@ namespace HaywireMQ.Server
         public void Enqueue(Message message)
         {
             // TODO
-            throw new NotImplementedException();
+            ulong sequence = store.GetNextSequence(this.Id);
+            if (sequence == ulong.MinValue)
+            {
+                // TODO: Throw exception, queue wasn't found.
+            }
+            else
+            {
+                message.Id = sequence;
+                store.StoreMessage("test", message);
+            }
         }
 
         public void Dispose()

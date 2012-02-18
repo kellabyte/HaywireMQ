@@ -22,12 +22,12 @@ namespace HaywireMQ.Server.Tests
             public TestConventions()
                 : base(
                     new AutoFakeItEasyCustomization(),
-                    new GreedyHaywireServerCustomization())
+                    new TestsCustomization())
             {
             }
         }
 
-        private class GreedyHaywireServerCustomization : ICustomization
+        private class TestsCustomization : ICustomization
         {
             public void Customize(IFixture fixture)
             {
@@ -39,11 +39,11 @@ namespace HaywireMQ.Server.Tests
         [TestMethod]
         public void Should_use_default_messagestore_when_started_without_modulecatalog()
         {
-            var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());            
+            var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
             var sut = fixture.CreateAnonymous<HaywireServer>();
             sut.Start();
 
-            Assert.IsInstanceOfType(sut.MessageStore, typeof(InMemoryMessageStore));
+            Assert.IsInstanceOfType(sut.MessageStore, typeof(MessageStore.InMemoryMessageStore));
         }
 
         [TestMethod]

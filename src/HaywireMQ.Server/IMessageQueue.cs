@@ -13,6 +13,16 @@ namespace HaywireMQ.Server
         string Id { get; }
 
         /// <summary>
+        /// Open the Message Queue.
+        /// </summary>
+        void Open();
+
+        /// <summary>
+        /// Close the Message Queue.
+        /// </summary>
+        void Close();
+
+        /// <summary>
         /// Peek the next message from the message store.
         /// </summary>
         /// <returns>Message</returns>
