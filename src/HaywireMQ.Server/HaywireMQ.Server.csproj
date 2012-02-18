@@ -52,8 +52,9 @@
     <Compile Include="Channel\IMessageChannel.cs" />
     <Compile Include="IMessageQueue.cs" />
     <Compile Include="MessageQueue.cs" />
-    <Compile Include="MessageStore\IMessageStore.cs" />
-    <Compile Include="MessageStore\InMemoryMessageStore.cs" />
+    <Compile Include="MessageQueueFactory.cs" />
+    <Compile Include="Store\IMessageStore.cs" />
+    <Compile Include="Store\InMemoryMessageStore.cs" />
     <Compile Include="DriverCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

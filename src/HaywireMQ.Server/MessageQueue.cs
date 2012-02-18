@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HaywireMQ.Server.Channel;
-using HaywireMQ.Server.MessageStore;
+using HaywireMQ.Server.Store;
 
 namespace HaywireMQ.Server
 {
@@ -45,7 +45,7 @@ namespace HaywireMQ.Server
         public void Close()
         {
             // TODO
-            throw new NotImplementedException();            
+            throw new NotImplementedException();
         }
 
         public Message Peek()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using HaywireMQ.Server.MessageStore;
+using HaywireMQ.Server.Store;
 
 namespace HaywireMQ.MessageStore.Cassandra
 {
@@ -13,7 +13,17 @@ namespace HaywireMQ.MessageStore.Cassandra
             // TODO
         }
 
+        public bool CreateQueue(string queueName)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<string> GetQueues()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool QueueExists(string queueName)
         {
             throw new NotImplementedException();
         }
@@ -29,11 +39,6 @@ namespace HaywireMQ.MessageStore.Cassandra
         }
 
         public Message GetMessage(string queueName, ulong sequence)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CreateQueue(string queueName)
         {
             throw new NotImplementedException();
         }

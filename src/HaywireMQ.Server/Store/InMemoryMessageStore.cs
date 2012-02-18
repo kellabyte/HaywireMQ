@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace HaywireMQ.Server.MessageStore
+namespace HaywireMQ.Server.Store
 {
     public class InMemoryMessageStore : IMessageStore
     {
@@ -30,9 +30,21 @@ namespace HaywireMQ.Server.MessageStore
         {
         }
 
+        public bool CreateQueue(string queueName)
+        {
+            var entry = new QueueEntry();
+            var result = queues.TryAdd(queueName, entry);
+            return result;
+        }
+
         public IList<string> GetQueues()
         {
             return new List<string>(queues.Keys);
+        }
+
+        public bool QueueExists(string queueName)
+        {
+            return this.queues.ContainsKey(queueName);
         }
 
         public Message GetMessage(string queueName, ulong sequence)
@@ -66,13 +78,6 @@ namespace HaywireMQ.Server.MessageStore
                 return (ulong)entry.Messages.Count;
             }
             return ulong.MinValue;
-        }
-
-        public bool CreateQueue(string queueName)
-        {
-            var entry = new QueueEntry();
-            var result = queues.TryAdd(queueName, entry);
-            return result;
         }
 
         public void StoreMessage(string queueName, Message message)

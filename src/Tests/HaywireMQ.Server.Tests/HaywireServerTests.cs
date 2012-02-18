@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
 using HaywireMQ.Server.Channel;
-using HaywireMQ.Server.MessageStore;
+using HaywireMQ.Server.Store;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoFakeItEasy;
@@ -43,7 +43,7 @@ namespace HaywireMQ.Server.Tests
             var sut = fixture.CreateAnonymous<HaywireServer>();
             sut.Start();
 
-            Assert.IsInstanceOfType(sut.MessageStore, typeof(MessageStore.InMemoryMessageStore));
+            Assert.IsInstanceOfType(sut.MessageStore, typeof(InMemoryMessageStore));
         }
 
         [TestMethod]

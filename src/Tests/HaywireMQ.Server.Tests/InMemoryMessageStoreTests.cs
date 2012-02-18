@@ -1,6 +1,6 @@
 ﻿using System;
 using FakeItEasy;
-using HaywireMQ.Server.MessageStore;
+using HaywireMQ.Server.Store;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoFakeItEasy;
@@ -31,13 +31,24 @@ namespace HaywireMQ.Server.Tests
         }
 
         [TestMethod]
-        public void Should_store_queue_when_queue_created()
-        {            
-            var store = new InMemoryMessageStore();
+        public void Queue_should_exist_when_created()
+        {
+            var sut = new InMemoryMessageStore();
             var queueName = "test";
-            store.CreateQueue(queueName);
+            sut.CreateQueue(queueName);
 
-            var queues = store.GetQueues();
+            var exists = sut.QueueExists(queueName);
+            Assert.AreEqual<bool>(true, exists);
+        }
+
+        [TestMethod]
+        public void Should_store_queue_when_queue_created()
+        {
+            var sut = new InMemoryMessageStore();
+            var queueName = "test";
+            sut.CreateQueue(queueName);
+
+            var queues = sut.GetQueues();
             Assert.AreEqual<string>(queueName, queues[0]);
         }
 
@@ -72,15 +83,17 @@ namespace HaywireMQ.Server.Tests
         public void Sequence_should_not_change_for_queue_not_changing()
         {            
             var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
-            var queueName = "test";
+            var queueName1 = "test1";
+            var queueName2 = "test2";
             var sut = fixture.Freeze<InMemoryMessageStore>();
-            sut.CreateQueue(queueName);
+            sut.CreateQueue(queueName1);
+            sut.CreateQueue(queueName2);
 
             for (ulong i = 1; i < 10; i++)
             {
-                var sequence = sut.GetNextSequence(queueName);
-                Assert.AreEqual<ulong>(i, sequence);
+                var sequence = sut.GetNextSequence(queueName2);
             }
+            Assert.AreEqual<ulong>(1, sut.GetNextSequence(queueName1));
         }
 
         [TestMethod]

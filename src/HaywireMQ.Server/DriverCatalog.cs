@@ -6,7 +6,7 @@ using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Text;
 using HaywireMQ.Server.Channel;
-using HaywireMQ.Server.MessageStore;
+using HaywireMQ.Server.Store;
 
 namespace HaywireMQ.Server
 {

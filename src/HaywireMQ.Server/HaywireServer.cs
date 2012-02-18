@@ -6,13 +6,15 @@ using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Text;
 using HaywireMQ.Server.Channel;
-using HaywireMQ.Server.MessageStore;
+using HaywireMQ.Server.Store;
 
 namespace HaywireMQ.Server
 {
     public class HaywireServer
     {
-        private DriverCatalog catalog = null;
+        private readonly DriverCatalog catalog = null;
+        private MessageQueueFactory queueFactory = null;
+
         public IMessageChannel MessageChannel { get; private set; }
         public IMessageStore MessageStore { get; private set; }
         public List<IMessageQueue> MessageQueues { get; private set; }
@@ -33,6 +35,8 @@ namespace HaywireMQ.Server
 
             InitializeMessageChannel();
             InitializeMessageStore();
+
+            this.queueFactory = new MessageQueueFactory(this.MessageStore, this.MessageChannel);
 
             LoadMessageQueues();
         }
