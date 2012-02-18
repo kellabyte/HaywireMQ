@@ -8,8 +8,8 @@
     <ProjectGuid>{AE7D7881-B648-4A67-9A27-9F79A386727D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HaywireMQ.MessageStore.Cassandra</RootNamespace>
-    <AssemblyName>HaywireMQ.MessageStore.Cassandra</AssemblyName>
+    <RootNamespace>HaywireMQ.Store.Cassandra</RootNamespace>
+    <AssemblyName>HaywireMQ.Store.Cassandra</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

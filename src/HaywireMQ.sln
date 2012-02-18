@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaywireMQ", "HaywireMQ\Hayw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaywireMQ.Server", "HaywireMQ.Server\HaywireMQ.Server.csproj", "{36EF4F1E-4D73-44DB-9FA1-144CA9E7B81C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaywireMQ.MessageStore.Cassandra", "HaywireMQ.MessageStore.Cassandra\HaywireMQ.MessageStore.Cassandra.csproj", "{AE7D7881-B648-4A67-9A27-9F79A386727D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C8F2503D-9B73-40BA-B84C-7C69A7BBB8E7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1A73413-146E-4DA4-B1E6-A642AAEBCD18}"
@@ -19,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaywireMQ.Server.Tests", "Tests\HaywireMQ.Server.Tests\HaywireMQ.Server.Tests.csproj", "{A598CB40-EF06-4A6A-B66D-DBE798952C4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaywireMQ.Channel.ZeroMQ", "HaywireMQ.Channel.ZeroMQ\HaywireMQ.Channel.ZeroMQ.csproj", "{3142CE88-9C0F-4C7F-91B9-BC6323246FF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaywireMQ.Store.Cassandra", "HaywireMQ.Store.Cassandra\HaywireMQ.Store.Cassandra.csproj", "{AE7D7881-B648-4A67-9A27-9F79A386727D}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -53,16 +53,6 @@ Global
 		{36EF4F1E-4D73-44DB-9FA1-144CA9E7B81C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{36EF4F1E-4D73-44DB-9FA1-144CA9E7B81C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{36EF4F1E-4D73-44DB-9FA1-144CA9E7B81C}.Release|x86.ActiveCfg = Release|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|x86.ActiveCfg = Release|Any CPU
 		{A598CB40-EF06-4A6A-B66D-DBE798952C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A598CB40-EF06-4A6A-B66D-DBE798952C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A598CB40-EF06-4A6A-B66D-DBE798952C4D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -83,6 +73,16 @@ Global
 		{3142CE88-9C0F-4C7F-91B9-BC6323246FF8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3142CE88-9C0F-4C7F-91B9-BC6323246FF8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3142CE88-9C0F-4C7F-91B9-BC6323246FF8}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AE7D7881-B648-4A67-9A27-9F79A386727D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

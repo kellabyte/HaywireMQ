@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using HaywireMQ.Server.Store;
 
-namespace HaywireMQ.MessageStore.Cassandra
+namespace HaywireMQ.Store.Cassandra
 {
     public class CassandraMessageStore : IMessageStore
     {
