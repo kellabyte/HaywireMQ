@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\AsyncResult.cs" />
+    <Compile Include="Collections\CompletedAsyncResult.cs" />
+    <Compile Include="Collections\ExceptionMessages.cs" />
+    <Compile Include="Collections\InputQueue.cs" />
+    <Compile Include="Collections\SimpleIOThreadScheduler.cs" />
+    <Compile Include="Collections\TimeoutHelper.cs" />
     <Compile Include="IMessageQueue.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageQueue.cs" />

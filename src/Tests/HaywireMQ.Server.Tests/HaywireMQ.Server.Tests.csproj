@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="InMemoryMessageStoreTests.cs" />
     <Compile Include="MessageQueueFactoryTests.cs" />
+    <Compile Include="InMemoryMessageChannelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HaywireServerTests.cs" />
   </ItemGroup>

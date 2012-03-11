@@ -10,25 +10,49 @@ using HaywireMQ.Server.Store;
 
 namespace HaywireMQ.Server
 {
+    /// <summary>
+    /// Service that manages all the message queues.
+    /// </summary>
     public class HaywireServer
     {
         private readonly DriverCatalog catalog = null;
         private MessageQueueFactory queueFactory = null;
 
-        public IMessageChannel MessageChannel { get; private set; }
-        public IMessageStore MessageStore { get; private set; }
-        public List<IMessageQueue> MessageQueues { get; private set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HaywireServer"/> class.
+        /// </summary>
         public HaywireServer()
             : this(new DriverCatalog())
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HaywireServer"/> class.
+        /// </summary>
+        /// <param name="catalog">Catalog of drivers to use.</param>
         public HaywireServer(DriverCatalog catalog)
         {
             this.catalog = catalog;
         }
 
+        /// <summary>
+        /// Gets the current message channel.
+        /// </summary>
+        public IMessageChannel MessageChannel { get; private set; }
+
+        /// <summary>
+        /// Gets the current message store.
+        /// </summary>
+        public IMessageStore MessageStore { get; private set; }
+
+        /// <summary>
+        /// Gets the list of message queues.
+        /// </summary>
+        public List<IMessageQueue> MessageQueues { get; private set; }
+
+        /// <summary>
+        /// Start the <see cref="HaywireServer"/>. Initializes and starts message channels, message store and message queues.
+        /// </summary>
         public void Start()
         {
             this.MessageQueues = new List<IMessageQueue>();
